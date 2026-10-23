@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chicken Inn - Etudiant et Enfant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #f36b18;
+  --cream: #fff5e8;
+  --display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #080808; overflow: hidden; }
+
+#stage {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
+  transform-origin: center center; overflow: hidden; isolation: isolate;
+  font-family: var(--body); color: #fff;
+  background:
+    radial-gradient(ellipse at 79% 22%, rgba(243,107,24,.26), transparent 34%),
+    radial-gradient(ellipse at 14% 80%, rgba(200,75,11,.18), transparent 42%),
+    linear-gradient(124deg, #0c0b0a 0%, #1a1512 48%, #080808 100%);
+  box-shadow: 0 28px 90px rgba(0,0,0,.55);
+}
+#stage::before {
+  content: ""; position: absolute; inset: 22px; z-index: 7; pointer-events: none;
+  border: 3px solid rgba(255,245,232,.55);
+  outline: 2px solid rgba(243,107,24,.9); outline-offset: -12px;
+  box-shadow: 0 0 24px rgba(243,107,24,.35), inset 0 0 24px rgba(243,107,24,.2);
+}
+
+.smoke { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+#smokeBack { z-index: 1; opacity: .85; }
+#smokeFront { z-index: 6; opacity: .3; }
+
+.logo {
+  position: absolute; left: 70px; top: 35px; width: 92px; height: 92px; z-index: 5;
+  border-radius: 50%; background: #fff8ef; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 5px rgba(243,107,24,.88), 0 12px 28px rgba(0,0,0,.42);
+}
+.logo img { width: 70px; height: 70px; object-fit: contain; }
+.brand-name {
+  position: absolute; left: 190px; top: 48px; z-index: 5;
+  font-family: var(--display); font-size: 62px; line-height: 1; letter-spacing: 2.5px;
+  color: var(--cream); text-transform: uppercase; text-shadow: 3px 4px 0 #7c2d12, 0 0 24px rgba(243,107,24,.24);
+}
+.brand-name::after {
+  content: "FRESH \2022  HOT \2022  DELICIOUS"; display: block; margin-top: 8px;
+  font: 800 16px/1 var(--body); letter-spacing: 5px; color: #f8a36b; text-shadow: none;
+}
+.halal-logo {
+  position: absolute; right: 78px; top: 34px; z-index: 5; width: 92px; height: 92px;
+  border: 3px solid #fff1df; border-radius: 50%; color: var(--cream); text-align: center;
+  background: radial-gradient(circle at 32% 25%, #ff9b45 0%, #f36b18 42%, #a83408 100%);
+  box-shadow: 0 0 0 4px rgba(243,107,24,.38), 0 10px 28px rgba(0,0,0,.45);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.halal-logo .arabic { font-family: serif; font-size: 26px; line-height: 1.05; font-weight: 700; }
+.halal-logo .halal-word { font-family: Arial, sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 2.5px; line-height: 1.1; }
+
+.title {
+  position: absolute; margin: 0; left: 70px; top: 166px; z-index: 2; display: flex; white-space: pre;
+  font-family: var(--display); font-size: 112px; line-height: .88; letter-spacing: -2px;
+  color: #fff8ef; text-shadow: 7px 8px 0 rgba(124,45,18,.92), 0 0 42px rgba(243,107,24,.12);
+  -webkit-text-stroke: 1px rgba(255,255,255,.14);
+}
+.title span { display: inline-block; opacity: 0; animation: smokeIn 1.5s cubic-bezier(.2,.7,.2,1) forwards; }
+@keyframes smokeIn {
+  from { opacity: 0; filter: blur(46px); transform: translateY(70px) scale(1.18); }
+  60% { opacity: .9; }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+
+/* two sections */
+.sections { position: absolute; left: 62px; right: 62px; top: 282px; bottom: 36px; z-index: 4; display: flex; flex-direction: column; gap: 6px; }
+.sec { display: flex; flex-direction: column; min-height: 0; }
+.sec.s1 { flex: 1.2; }
+.sec.s2 { flex: 1; }
+.sec-head { flex: none; display: flex; align-items: center; gap: 18px; height: 46px; padding-left: 6px; }
+.sec-head h2 {
+  margin: 0; font-family: var(--display); font-weight: 400; font-size: 38px; line-height: 1; letter-spacing: 2px; color: var(--cream);
+  text-shadow: 3px 3px 0 #7c2d12;
+}
+.sec-head .line { flex: 1; height: 2px; background: linear-gradient(90deg, rgba(243,107,24,.9), rgba(255,245,232,.12)); }
+.sec-head .note { font: 800 20px/1 var(--body); letter-spacing: 3px; color: #ff9b45; }
+
+.row { flex: 1; min-height: 0; display: grid; gap: 14px; }
+.s1 .row { grid-template-columns: repeat(5, 1fr); }
+.s2 .row { grid-template-columns: repeat(4, 1fr); }
+
+.col {
+  position: relative; min-width: 0; min-height: 0; padding: 10px 12px 12px; border-radius: 22px; display: flex; flex-direction: column;
+  background: linear-gradient(155deg, rgba(255,255,255,.085), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,245,232,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 22px rgba(0,0,0,.22);
+  backdrop-filter: blur(5px);
+  opacity: 0; filter: blur(16px); transform: translateY(40px);
+  animation: up .8s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.col:nth-child(even) { background: linear-gradient(155deg, rgba(243,107,24,.14), rgba(255,255,255,.02)); }
+@keyframes up { to { opacity: 1; filter: blur(0); transform: none; } }
+
+.pic {
+  position: relative; flex: 1; min-height: 90px; border-radius: 16px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 50% 58%, rgba(243,107,24,.35), rgba(0,0,0,.25) 72%);
+}
+.pic img {
+  max-width: 100%; max-height: 100%; width: auto; height: 100%; object-fit: contain;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,.5));
+  animation: floaty 4s ease-in-out infinite;
+}
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.num {
+  position: absolute; left: 8px; top: 8px; z-index: 2; width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 28px; color: #d94e0b; background: var(--cream); box-shadow: 0 4px 0 #7c2d12;
+}
+.kid .num { background: #11100f; color: var(--cream); border: 3px solid var(--orange); font-size: 25px; }
+.price {
+  position: absolute; right: 8px; top: 8px; z-index: 2; width: 92px; height: 92px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; transform: rotate(7deg);
+  font-family: var(--display); font-size: 29px; line-height: 1; color: #fffaf3; white-space: nowrap;
+  background: linear-gradient(145deg, #ff9b45, #e6530c 75%); border: 3px solid var(--cream);
+  box-shadow: 0 5px 0 #7c2d12, 0 10px 16px rgba(0,0,0,.34);
+}
+.kid .price { width: 100px; height: 100px; font-size: 32px; }
+.nm {
+  flex: none; margin-top: 10px; padding: 0 4px; font-family: var(--display); font-size: 28px; line-height: 1.02; letter-spacing: .5px; text-transform: uppercase; color: #fff;
+  text-shadow: 3px 3px 0 rgba(97,34,15,.95);
+}
+.kid .nm { font-size: 32px; }
+.ing { flex: none; margin-top: 6px; padding: 0 4px; font: 600 17px/1.25 var(--body); color: #ffd2ad; }
+.kid .ing { font-size: 20px; }
+.avec { flex: none; margin-top: 6px; padding: 0 4px; font: 600 16px/1.25 var(--body); color: rgba(255,245,232,.78); }
+.avec b { font-weight: 800; color: #ff9b45; letter-spacing: 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .smoke { display: none; }
+  .col, .title span { animation: none !important; opacity: 1 !important; filter: none !important; transform: none; }
+}
+</style>
+</head>
+<body>
+<main id="stage" aria-label="Menu Etudiant et Enfant">
+  <canvas id="smokeBack" class="smoke" width="1920" height="1080"></canvas>
+  <div class="logo"><img src="images/logo.png" alt="Logo"></div>
+  <div class="brand-name">Chicken Inn</div>
+  <div class="halal-logo" aria-label="Halal" title="Halal"><span class="arabic" lang="ar" dir="rtl">حلال</span><span class="halal-word">HALAL</span></div>
+  <h1 class="title" id="title" aria-label="ÉTUDIANT ET ENFANT"></h1>
+  <div class="sections" id="sections"></div>
+  <canvas id="smokeFront" class="smoke" width="1920" height="1080"></canvas>
+</main>
+
+<script>
+// ---- EDIT YOUR MENU HERE ----
+// PHOTOS: transparent PNGs in the "images" folder (change the img paths below if needed).
+const euro = n => n.toFixed(2).replace('.', ',') + ' \u20AC';
+const TITLE = '\u00C9TUDIANT ET ENFANT';
+const AVEC = '2 sauces au choix, 1 portion de frites, 1 boisson 33 cl';
+
+const STUDENT = [
+  { num: 1, img: 'images/etudiant-1.png', name: 'Double Cheese',
+    ing: "2 steaks hach\u00E9s (55 g, 85 % de b\u0153uf), salade croquante, tomates et oignons frais, fromage.",
+    avec: AVEC, price: 7.00 },
+  { num: 2, img: 'images/etudiant-2.png', name: 'Steak Poulet',
+    ing: "Steak de poulet pan\u00E9 et frit, salade croquante, sauce mayonnaise.",
+    avec: AVEC, price: 7.50 },
+  { num: 3, img: 'images/etudiant-3.png', name: 'Wrap Poulet',
+    ing: "Pain tortilla, filet de poulet tenders, salade croquante, sauce mayonnaise.",
+    avec: AVEC, price: 7.50 },
+  { num: 4, img: 'images/etudiant-4.png', name: "Hot'n'Spicy Wings",
+    ing: "6 wings (ailes de poulet) marin\u00E9s et cuisin\u00E9s d'apr\u00E8s la recette originale (\u00E9pic\u00E9).",
+    avec: AVEC, price: 7.50 },
+  { num: 5, img: 'images/etudiant-5.png', name: 'Tacos avec Tenders',
+    ing: "Petites tranches de poulet pan\u00E9, salade, tomates, oignons frits.",
+    avec: '1 portion de frites, 1 boisson 33 cl', price: 7.99 }
+];
+
+const KIDS = [
+  { num: 'A', img: 'images/enfant-a.png', name: "Kid's Meal A",
+    ing: "1 cheese burger, 2 sauces au choix, 1 portion de frites, 1 Capri-Sun.", price: 6.50 },
+  { num: 'B', img: 'images/enfant-b.png', name: "Kid's Meal B",
+    ing: "8 Poppin Poppers (pi\u00E8ces de blanc de poulet non \u00E9pic\u00E9), 2 sauces, 1 portion de frites, 1 Capri-Sun.", price: 6.50 },
+  { num: 'C', img: 'images/enfant-c.png', name: "Kid's Meal C",
+    ing: "4 nuggets, 2 sauces au choix, 1 portion de frites, 1 Capri-Sun.", price: 6.50 },
+  { num: 'D', img: 'images/enfant-d.png', name: "Kid's Meal D",
+    ing: "1 grand morceau de poulet, 2 sauces au choix, 1 portion de frites, 1 Capri-Sun.", price: 6.50 }
+];
+// -----------------------------
+
+const title = document.getElementById('title');
+[...TITLE].forEach((ch, i) => {
+  const s = document.createElement('span');
+  s.textContent = ch === ' ' ? '\u00A0' : ch;
+  s.style.animationDelay = (0.15 + i * 0.07) + 's';
+  title.appendChild(s);
+});
+
+let delay = 0.7;
+function section(cls, heading, note, list, kid) {
+  const sec = document.createElement('section');
+  sec.className = 'sec ' + cls;
+  let html = '<div class="sec-head"><h2>' + heading + '</h2><div class="line"></div><div class="note">' + note + '</div></div><div class="row">';
+  list.forEach(it => {
+    html += '<div class="col' + (kid ? ' kid' : '') + '" style="animation-delay:' + (delay += 0.07).toFixed(2) + 's">' +
+      '<div class="pic"><img src="' + it.img + '" alt="' + it.name + '" onerror="this.style.display=\'none\'">' +
+      '<span class="num">' + it.num + '</span><div class="price">' + euro(it.price) + '</div></div>' +
+      '<div class="nm">' + it.name + '</div>' +
+      '<div class="ing">' + it.ing + '</div>' +
+      (it.avec ? '<div class="avec"><b>AVEC :</b> ' + it.avec + '</div>' : '') + '</div>';
+  });
+  sec.innerHTML = html + '</div>';
+  document.getElementById('sections').appendChild(sec);
+}
+section('s1', '\u00C9TUDIANT', 'MENU COMPLET', STUDENT, false);
+section('s2', 'ENFANT', 'AVEC CAPRI-SUN', KIDS, true);
+
+function fitTitle() {
+  title.style.fontSize = '112px';
+  const max = 1780, w = title.scrollWidth;
+  if (w > max) title.style.fontSize = Math.floor(112 * max / w) + 'px';
+}
+fitTitle();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+
+// ---- smoke ----
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = rng(7), LIFE = [8, 8, 4];
+const mk = (n, f) => Array.from({ length: n }, (_, i) => f(i));
+const backSmoke = mk(46, i => ({ x: R()*2100-100, y: 1200+R()*100, rise: 900+R()*500, r0: 140+R()*120, r1: 200+R()*200, amp: 50+R()*110, fr: 1+Math.floor(R()*2), ph: R()*6.28, dr: -200+R()*400, off: R()*8, L: LIFE[i%3], a: .26+R()*.16, c: i%4===0 ? '124,45,18' : '255,255,255' }));
+const wisps = mk(14, i => ({ x: R()*2000, y: 1150, rise: 1000+R()*300, r0: 260+R()*120, r1: 260+R()*150, amp: 120+R()*120, fr: 1, ph: R()*6.28, dr: -300+R()*600, off: R()*8, L: 8, a: .16+R()*.08, c: '255,255,255' }));
+
+function drawSmoke(ctx, arr, t) {
+  ctx.clearRect(0, 0, 1920, 1080);
+  for (const p of arr) {
+    const u = ((t / 1000 + p.off) % p.L) / p.L;
+    const x = p.x + Math.sin(u * 6.283 * p.fr + p.ph) * p.amp + u * p.dr;
+    const y = p.y - u * p.rise, r = p.r0 + u * p.r1;
+    const al = p.a * Math.pow(Math.sin(Math.PI * u), 1.4);
+    if (al < .004) continue;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(' + p.c + ',' + al + ')');
+    g.addColorStop(.55, 'rgba(' + p.c + ',' + (al * .45) + ')');
+    g.addColorStop(1, 'rgba(' + p.c + ',0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+  }
+}
+const bctx = document.getElementById('smokeBack').getContext('2d');
+const fctx = document.getElementById('smokeFront').getContext('2d');
+function setTime(t) { drawSmoke(bctx, backSmoke, t); drawSmoke(fctx, wisps, t); }
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) setTime(3000);
+else { const t0 = performance.now(); (function loop(n) { setTime(n - t0); requestAnimationFrame(loop); })(t0); }
+
+// ---- fit 1920x1080 stage to any screen ----
+function fit() {
+  const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+  document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + k + ')';
+}
+addEventListener('resize', fit);
+fit();
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chicken Inn - Menus Chickens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #f36b18;
+  --cream: #fff5e8;
+  --display: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --body: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #080808; overflow: hidden; }
+
+#stage {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
+  transform-origin: center center; overflow: hidden; isolation: isolate;
+  font-family: var(--body); color: #fff;
+  background:
+    radial-gradient(ellipse at 79% 22%, rgba(243,107,24,.26), transparent 34%),
+    radial-gradient(ellipse at 14% 80%, rgba(200,75,11,.18), transparent 42%),
+    linear-gradient(124deg, #0c0b0a 0%, #1a1512 48%, #080808 100%);
+}
+#stage::before {
+  content: ""; position: absolute; inset: 22px; z-index: 7; pointer-events: none;
+  border: 3px solid rgba(255,245,232,.55);
+  outline: 2px solid rgba(243,107,24,.9); outline-offset: -12px;
+  box-shadow: 0 0 24px rgba(243,107,24,.35), inset 0 0 24px rgba(243,107,24,.2);
+}
+
+.smoke { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; }
+#smokeBack { z-index: 1; opacity: .85; }
+#smokeFront { z-index: 6; opacity: .3; }
+
+.logo {
+  position: absolute; left: 70px; top: 35px; width: 92px; height: 92px; z-index: 5;
+  border-radius: 50%; background: #fff8ef; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 5px rgba(243,107,24,.88), 0 12px 28px rgba(0,0,0,.42);
+}
+.logo img { width: 70px; height: 70px; object-fit: contain; }
+.brand-name {
+  position: absolute; left: 190px; top: 48px; z-index: 5;
+  font-family: var(--display); font-size: 62px; line-height: 1; letter-spacing: 2.5px;
+  color: var(--cream); text-transform: uppercase; text-shadow: 3px 4px 0 #7c2d12, 0 0 24px rgba(243,107,24,.24);
+}
+.brand-name::after {
+  content: "FRESH \2022  HOT \2022  DELICIOUS"; display: block; margin-top: 8px;
+  font: 800 16px/1 var(--body); letter-spacing: 5px; color: #f8a36b; text-shadow: none;
+}
+.halal-logo {
+  position: absolute; right: 78px; top: 34px; z-index: 5; width: 92px; height: 92px;
+  border: 3px solid #fff1df; border-radius: 50%; color: var(--cream); text-align: center;
+  background: radial-gradient(circle at 32% 25%, #ff9b45 0%, #f36b18 42%, #a83408 100%);
+  box-shadow: 0 0 0 4px rgba(243,107,24,.38), 0 10px 28px rgba(0,0,0,.45);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.halal-logo .arabic { font-family: serif; font-size: 26px; line-height: 1.05; font-weight: 700; }
+.halal-logo .halal-word { font-family: Arial, sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 2.5px; line-height: 1.1; }
+
+.title {
+  position: absolute; margin: 0; left: 70px; top: 166px; z-index: 2; display: flex; white-space: pre;
+  font-family: var(--display); font-size: 112px; line-height: .88; letter-spacing: -2px;
+  color: #fff8ef; text-shadow: 7px 8px 0 rgba(124,45,18,.92), 0 0 42px rgba(243,107,24,.12);
+  -webkit-text-stroke: 1px rgba(255,255,255,.14);
+}
+.title span { display: inline-block; opacity: 0; animation: smokeIn 1.5s cubic-bezier(.2,.7,.2,1) forwards; }
+@keyframes smokeIn {
+  from { opacity: 0; filter: blur(46px); transform: translateY(70px) scale(1.18); }
+  60% { opacity: .9; }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+
+/* 4 x 2 grid */
+.items {
+  position: absolute; left: 62px; right: 62px; top: 292px; bottom: 40px; z-index: 4;
+  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 20px;
+}
+.col {
+  position: relative; min-width: 0; min-height: 0; padding: 10px; border-radius: 22px; display: flex; gap: 12px;
+  background: linear-gradient(155deg, rgba(255,255,255,.085), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,245,232,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 10px 22px rgba(0,0,0,.22);
+  opacity: 0; transform: translateY(40px);
+  animation: up .7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.col:nth-child(even) { background: linear-gradient(155deg, rgba(243,107,24,.14), rgba(255,255,255,.02)); }
+@keyframes up { to { opacity: 1; transform: none; } }
+
+.pic {
+  position: relative; flex: none; width: 140px; border-radius: 16px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 50% 58%, rgba(243,107,24,.35), rgba(0,0,0,.25) 72%);
+}
+.pic img {
+  max-width: 100%; max-height: 100%; width: 100%; height: auto; object-fit: contain;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,.5));
+  animation: floaty 4s ease-in-out infinite;
+}
+.pic .fallback { font-size: 72px; opacity: .55; }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.num {
+  position: absolute; left: 8px; top: 8px; z-index: 2; width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 26px; color: #d94e0b; background: var(--cream); box-shadow: 0 4px 0 #7c2d12;
+}
+
+.info { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 2px 4px 0 0; }
+.nm {
+  font-family: var(--display); font-size: 34px; line-height: 1.04; letter-spacing: .5px; text-transform: uppercase; color: #fff;
+  text-shadow: 3px 3px 0 rgba(97,34,15,.95);
+}
+.nm.long { font-size: 29px; }
+.desc { margin-top: 8px; margin-bottom: auto; font: 600 21px/1.24 var(--body); color: #ffd2ad; flex: 1; }
+.prices { display: flex; gap: 8px; margin-top: 8px; }
+.pill {
+  flex: 1; min-width: 0; height: 70px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  white-space: nowrap; box-shadow: 0 4px 0 #7c2d12, 0 8px 12px rgba(0,0,0,.3);
+}
+.pill .lb { font: 800 13px/1 var(--body); letter-spacing: 3px; text-indent: 3px; }
+.pill .pr { font-family: var(--display); font-size: 33px; line-height: 1; letter-spacing: .5px; }
+.pill.solo { background: var(--cream); color: #d94e0b; }
+.pill.solo .lb { color: #7c2d12; }
+.pill.menu { background: linear-gradient(145deg, #ff9b45, #e6530c 75%); color: #fffaf3; border: 2px solid var(--cream); }
+.pill.menu .lb { color: #fff1df; }
+
+/* quantity tiers */
+.tiers { margin-top: 8px; display: grid; grid-template-columns: 1fr 86px 86px; gap: 6px; align-items: center; }
+.tiers .th { font: 800 13px/1 var(--body); letter-spacing: 3px; text-align: center; color: #f8a36b; }
+.tiers .q { font: 800 19px/1.1 var(--body); color: #fff8ef; }
+.tiers .tp {
+  height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; white-space: nowrap;
+  font-family: var(--display); font-size: 24px; line-height: 1; box-shadow: 0 3px 0 #7c2d12;
+}
+.tiers .tp.solo { background: var(--cream); color: #d94e0b; }
+.tiers .tp.menu { background: linear-gradient(145deg, #ff9b45, #e6530c 75%); color: #fffaf3; border: 2px solid var(--cream); }
+
+@media (prefers-reduced-motion: reduce) {
+  .smoke { display: none; }
+  .col, .title span { animation: none !important; opacity: 1 !important; filter: none !important; transform: none; }
+  .pic img { animation: none !important; }
+}
+</style>
+</head>
+<body>
+<main id="stage" aria-label="Menus Chickens">
+  <canvas id="smokeBack" class="smoke" width="1920" height="1080" aria-hidden="true"></canvas>
+  <div class="logo"><img src="images/logo.png" alt="Chicken Inn"></div>
+  <div class="brand-name">Chicken Inn</div>
+  <div class="halal-logo" role="img" aria-label="Halal"><span class="arabic" lang="ar" dir="rtl">حلال</span><span class="halal-word">HALAL</span></div>
+  <h1 class="title" id="title" aria-label="MENUS CHICKENS"></h1>
+  <section class="items" id="items"></section>
+  <canvas id="smokeFront" class="smoke" width="1920" height="1080" aria-hidden="true"></canvas>
+</main>
+
+<script>
+// ---- EDIT YOUR MENU HERE ----
+// PHOTOS: transparent PNGs in the "images" folder.
+// A missing price (solo / menu left out) is shown as a dash.
+// An item with "tiers" shows one row per quantity instead of a single SOLO / MENU pair.
+const TITLE = 'MENUS CHICKENS';
+const FIRST_NUMBER = 19;
+const ITEMS = [
+  { name: 'Chicken Mix', img: 'images/item-19.png', solo: 7.00, menu: 9.00,
+    desc: '2 grands morceaux de poulet + 3 ailes de poulet épicées' },
+  { name: '3X Chicken', img: 'images/item-20.png', solo: 6.50, menu: 8.50,
+    desc: '3 grands morceaux de poulet grillés' },
+  { name: 'Hot Spicy Wings', img: 'images/item-21.png',
+    desc: 'Ailes de poulet pané, épicées',
+    tiers: [
+      { label: '3 ailes',  solo: 3.00, menu: 5.00 },
+      { label: '6 ailes',  solo: 6.00, menu: 8.00 },
+      { label: '10 ailes', solo: 8.00, menu: 10.00 }
+    ] },
+  { name: 'Chicken Strips', img: 'images/item-22.png', solo: 6.00, menu: 8.00,
+    desc: '5 petites tranches de poulet pané (Tenders)' },
+  { name: 'Chicken Nuggets', img: 'images/item-23.png',
+    desc: 'Croquettes de poulet pané',
+    tiers: [
+      { label: '6 pièces', solo: 5.00, menu: 7.00 },
+      { label: '9 pièces', solo: 6.50, menu: 8.50 }
+    ] },
+  { name: 'Chicken Pop Corn', img: 'images/item-24.png',
+    desc: 'Pop corn de poulet',
+    tiers: [
+      { label: '12 pièces', solo: 5.90, menu: 7.90 },
+      { label: '18 pièces', solo: 7.90, menu: 9.90 }
+    ] },
+  { name: 'Chicken Tikka', img: 'images/item-25.png', solo: 7.90, menu: 9.90,
+    desc: '5 morceaux de blanc de poulet grillés et marinés à la sauce tandoori' },
+  { name: 'Samosas', img: 'images/item-26.png', solo: 6.00, menu: 8.00,
+    desc: 'Légumes, poulet' }
+];
+// -----------------------------
+
+const euro = n => n.toFixed(2).replace('.', ',') + '\u00A0\u20AC';
+const price = v => (typeof v === 'number' ? euro(v) : '\u2014');
+const el = (tag, cls, text) => {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+};
+
+const title = document.getElementById('title');
+[...TITLE].forEach((ch, i) => {
+  const s = el('span', '', ch === ' ' ? '\u00A0' : ch);
+  s.style.animationDelay = (0.15 + i * 0.08) + 's';
+  title.appendChild(s);
+});
+
+function pill(kind, label, value) {
+  const p = el('div', 'pill ' + kind);
+  p.append(el('span', 'lb', label), el('span', 'pr', price(value)));
+  return p;
+}
+
+const items = document.getElementById('items');
+ITEMS.forEach((it, i) => {
+  const c = el('div', 'col');
+  c.style.animationDelay = (0.7 + i * 0.06) + 's';
+
+  const pic = el('div', 'pic');
+  const img = new Image();
+  img.src = it.img; img.alt = it.name;
+  img.onerror = () => { img.replaceWith(el('span', 'fallback', '\uD83C\uDF57')); };
+  pic.append(img, el('span', 'num', String(FIRST_NUMBER + i)));
+
+  const info = el('div', 'info');
+  info.append(
+    el('div', 'nm' + (it.name.length > 17 ? ' long' : ''), it.name),
+    el('div', 'desc', it.desc)
+  );
+  if (it.tiers) {
+    const t = el('div', 'tiers');
+    t.append(el('span'), el('span', 'th', 'SOLO'), el('span', 'th', 'MENU'));
+    it.tiers.forEach(r => t.append(
+      el('span', 'q', r.label),
+      el('span', 'tp solo', price(r.solo)),
+      el('span', 'tp menu', price(r.menu))
+    ));
+    info.appendChild(t);
+  } else {
+    const prices = el('div', 'prices');
+    prices.append(pill('solo', 'SOLO', it.solo), pill('menu', 'MENU', it.menu));
+    info.appendChild(prices);
+  }
+
+  c.append(pic, info);
+  items.appendChild(c);
+});
+
+function fitTitle() {
+  title.style.fontSize = '112px';
+  const max = 1780, w = title.scrollWidth;
+  if (w > max) title.style.fontSize = Math.floor(112 * max / w) + 'px';
+}
+fitTitle();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitle);
+
+// ---- smoke (capped at 30 fps to stay light on TV / mini-PC hardware) ----
+function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = rng(7), LIFE = [8, 8, 4];
+const mk = (n, f) => Array.from({ length: n }, (_, i) => f(i));
+const backSmoke = mk(34, i => ({ x: R()*2100-100, y: 1200+R()*100, rise: 900+R()*500, r0: 140+R()*120, r1: 200+R()*200, amp: 50+R()*110, fr: 1+Math.floor(R()*2), ph: R()*6.28, dr: -200+R()*400, off: R()*8, L: LIFE[i%3], a: .26+R()*.16, c: i%4===0 ? '124,45,18' : '255,255,255' }));
+const wisps = mk(10, () => ({ x: R()*2000, y: 1150, rise: 1000+R()*300, r0: 260+R()*120, r1: 260+R()*150, amp: 120+R()*120, fr: 1, ph: R()*6.28, dr: -300+R()*600, off: R()*8, L: 8, a: .16+R()*.08, c: '255,255,255' }));
+
+function drawSmoke(ctx, arr, t) {
+  ctx.clearRect(0, 0, 1920, 1080);
+  for (const p of arr) {
+    const u = ((t / 1000 + p.off) % p.L) / p.L;
+    const x = p.x + Math.sin(u * 6.283 * p.fr + p.ph) * p.amp + u * p.dr;
+    const y = p.y - u * p.rise, r = p.r0 + u * p.r1;
+    const al = p.a * Math.pow(Math.sin(Math.PI * u), 1.4);
+    if (al < .004) continue;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(' + p.c + ',' + al + ')');
+    g.addColorStop(.55, 'rgba(' + p.c + ',' + (al * .45) + ')');
+    g.addColorStop(1, 'rgba(' + p.c + ',0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+  }
+}
+const bctx = document.getElementById('smokeBack').getContext('2d');
+const fctx = document.getElementById('smokeFront').getContext('2d');
+function setTime(t) { drawSmoke(bctx, backSmoke, t); drawSmoke(fctx, wisps, t); }
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) setTime(3000);
+else {
+  const t0 = performance.now(); let last = 0;
+  (function loop(n) {
+    if (n - last >= 33) { last = n; setTime(n - t0); }
+    requestAnimationFrame(loop);
+  })(t0);
+}
+
+// ---- fit 1920x1080 stage to any screen ----
+function fit() {
+  const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+  document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + k + ')';
+}
+addEventListener('resize', fit);
+fit();
+</script>
+</body>
+</html>
